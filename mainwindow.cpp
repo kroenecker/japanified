@@ -4,9 +4,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindowClass)
 {
-   if(d.connect()) {
-    d.create();
-   }
+
    ui->setupUi(this);
 }
 

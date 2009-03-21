@@ -20,12 +20,15 @@ Database::~Database() {
 }
 
 bool Database::connect() {
-  QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-  db.setHostName("localhost");
-  db.setDatabaseName("japanified.db");
-  if(!db.open()) {
-    QMessageBox::critical(0, "Cannot open db connection.", "Somethings wrong...", QMessageBox::Cancel);
-    return false;
+  QSqlDatabase db = QSqlDatabase::database();
+  if(!db.isOpen()) {
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setHostName("localhost");
+    db.setDatabaseName("japanified.db");
+    if(!db.open()) {
+      QMessageBox::critical(0, "Cannot open db connection.", db.lastError().text(), QMessageBox::Cancel);
+      return false;
+    }
   }
   return true;
 }
@@ -46,6 +49,9 @@ bool Database::create() {
 }
 
 bool Database::fill() {
+  connect();
+  create();
+
   QSqlQuery q;
   q.exec("DROP TABLE edict_words;");
   if(q.lastError().type()) {
@@ -67,5 +73,5 @@ bool Database::fill() {
 
 void Database::fill_complete() {
   //emit fill complete signal
-   QMessageBox::critical(0, "Thread done", "hurrah", QMessageBox::Cancel);
+  QMessageBox::critical(0, "Thread done", "hurrah", QMessageBox::Cancel);
 }
