@@ -18,7 +18,12 @@ DatabaseThread::~DatabaseThread() {
 
 void DatabaseThread::run() {
   QFile textfile("edict_utf8.txt");
+  if(!textfile.exists()) {
+    //add emit
+    return;
+  }
   if (!textfile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    //add emit
     return;
   }
 
@@ -29,11 +34,19 @@ void DatabaseThread::run() {
   QSqlDatabase db = QSqlDatabase::database();
   db.transaction();
 
+  int current_byte_count = 0;
+  int textfile_size      = textfile.size();
+
   in.readLine();//get rid of ???? at the top of the file
   while (!in.atEnd()) {
-    QString     word;
-    QString     reading;
-    QString     line        = in.readLine();
+    QString word;
+    QString reading;
+    QString line        = in.readLine();
+    current_byte_count += line.size() + 18; //wowzers. what a hack.
+
+    int percent = (((double)current_byte_count / (double)textfile_size) * (double)100);
+    emit(progress(percent));
+
     QStringList definitions = line.split("/");
 
     if(rx.indexIn(definitions.at(0)) > -1) {

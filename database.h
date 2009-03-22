@@ -3,23 +3,19 @@
 
 #include <QObject>
 #include <QSqlDatabase>
+#include <QDialog>
 #include "databasethread.h"
 
-class Database : public QObject
+class Database
 {
-  Q_OBJECT
   public:
-    Database(QObject *parent = 0);
+    Database();
     ~Database();
 
     bool connect();
     bool create();
     bool fill();
 
-  public slots:
-    void fill_complete();
-
-  private:
     DatabaseThread thread;
 };
 

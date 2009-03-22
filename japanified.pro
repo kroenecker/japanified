@@ -8,10 +8,14 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     database.cpp \
     edict.cpp \
-    databasethread.cpp
+    databasethread.cpp \
+    progressbardialog.cpp
 HEADERS += mainwindow.h \
     database.h \
     edict.h \
-    databasethread.h
-FORMS += mainwindow.ui
+    databasethread.h \
+    progressbardialog.h
+FORMS += mainwindow.ui \
+    confirm_create_database.ui \
+    progressbar.ui
 OTHER_FILES += fill_edict.rb

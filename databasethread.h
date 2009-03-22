@@ -12,8 +12,11 @@ class DatabaseThread : public QThread
     DatabaseThread();
     ~DatabaseThread();
 
-protected:
+  protected:
    void run();
-};
+
+  signals:
+   void progress(int);
+ };
 
 #endif // DATABASETHREAD_H

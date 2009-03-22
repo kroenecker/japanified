@@ -7,13 +7,12 @@
 #include <QChar>
 #include <QMessageBox>
 #include <QThread>
+
 #include "database.h"
 
-Database::Database(QObject *parent)
-: QObject(parent)
+Database::Database()
 {
-  QObject::connect(&thread, SIGNAL(finished()), this, SLOT(fill_complete()));
-  QObject::connect(&thread, SIGNAL(started()), this, SLOT(fill_complete()));
+
 }
 
 Database::~Database() {
@@ -69,9 +68,4 @@ bool Database::fill() {
   }
   thread.start();//Fill database
   return true;
-}
-
-void Database::fill_complete() {
-  //emit fill complete signal
-  QMessageBox::critical(0, "Thread done", "hurrah", QMessageBox::Cancel);
 }
