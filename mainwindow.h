@@ -34,6 +34,10 @@ private:
 public slots:
     void on_actionGenerage_Database_activated();
     void actionGenerate_Database_accepted();
+
+private slots:
+    void on_historyPushButton_clicked();
+    void on_lookupPushButton_clicked();
 };
 
 #endif // MAINWINDOW_H

@@ -31,3 +31,15 @@ void MainWindow::actionGenerate_Database_accepted() {
   pb_dialog.show();
   d.fill();
 }
+
+void MainWindow::on_lookupPushButton_clicked() {
+  d.lookup(ui->lookupLineEdit->text(), EXACT);
+}
+
+void MainWindow::on_historyPushButton_clicked() {
+    if(ui->dockWidget->isHidden()) {
+    ui->dockWidget->show();
+  } else {
+    ui->dockWidget->hide();
+  }
+}

@@ -1,6 +1,11 @@
 #include "edict.h"
 
-Edict::Edict()
-{
+Edict::Edict() {
+}
 
+void Edict::clear() {
+  id      = -1;
+  word    = "";
+  reading = "";
+  definitions.clear();
 }
