@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Thu Mar 26 23:47:01 2009
+** Created: Sat Mar 28 01:30:38 2009
 **      by: Qt User Interface Compiler version 4.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -15,7 +15,6 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDockWidget>
-#include <QtGui/QGraphicsView>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
@@ -28,6 +27,7 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QStatusBar>
+#include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -47,7 +47,7 @@ public:
     QRadioButton *middleRadioButton;
     QRadioButton *endRadioButton;
     QPushButton *historyPushButton;
-    QGraphicsView *lookupGraphicsView;
+    QTableWidget *lookupTableWidget;
     QMenuBar *menuBar;
     QMenu *menuOptions;
     QStatusBar *statusBar;
@@ -119,11 +119,10 @@ public:
 
         gridLayout_2->addWidget(historyPushButton, 1, 1, 1, 1);
 
-        lookupGraphicsView = new QGraphicsView(centralWidget);
-        lookupGraphicsView->setObjectName(QString::fromUtf8("lookupGraphicsView"));
-        lookupGraphicsView->setMinimumSize(QSize(410, 0));
+        lookupTableWidget = new QTableWidget(centralWidget);
+        lookupTableWidget->setObjectName(QString::fromUtf8("lookupTableWidget"));
 
-        gridLayout_2->addWidget(lookupGraphicsView, 2, 0, 1, 2);
+        gridLayout_2->addWidget(lookupTableWidget, 2, 0, 1, 2);
 
         MainWindowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowClass);

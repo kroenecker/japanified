@@ -3,6 +3,7 @@
 
 #include <QtGui/QMainWindow>
 #include <QDialog>
+#include "convert.h"
 #include "database.h"
 #include "progressbardialog.h"
 
@@ -22,6 +23,7 @@ public:
     ~MainWindow();
 
 private:
+    Convert c;
     Database d;
 
     ProgressBarDialog pb_dialog;

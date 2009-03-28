@@ -74,14 +74,7 @@
      </widget>
     </item>
     <item row="2" column="0" colspan="2">
-     <widget class="QGraphicsView" name="lookupGraphicsView">
-      <property name="minimumSize">
-       <size>
-        <width>410</width>
-        <height>0</height>
-       </size>
-      </property>
-     </widget>
+     <widget class="QTableWidget" name="lookupTableWidget"/>
     </item>
    </layout>
   </widget>

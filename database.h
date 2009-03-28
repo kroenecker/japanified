@@ -25,12 +25,12 @@ class Database
     bool connect();
     bool create();
     bool fill();
-    QList<Edict> lookup(const QString &value, LookupType t);
+    QList<Edict*> lookup(const QString &value, LookupType t);
 
     DatabaseThread thread;
 
   private:
-    QList<Edict> edict_words;
+    QList<Edict*> edict_words;
 };
 
 #endif // DATABASE_H
