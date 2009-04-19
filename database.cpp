@@ -78,28 +78,27 @@ QList<Edict*> Database::lookup(const QString &value, LookupType type) {
   }
 
   if(type == EXACT) {
-    std::cout << "database lookup: " << value.toStdString() << std::endl;
-
     QSqlQuery q;
-    //    q.prepare("SELECT id, word, reading FROM edict_words WHERE word = ? OR reading = ? ");
-    //    q.bindValue(0, value);
-    //    q.bindValue(1, value);
-    q.prepare("SELECT id, word, reading FROM edict_words WHERE id > 1000 AND id < 1100 ");
-    q.exec();
+    q.prepare("SELECT id, word, reading FROM edict_words WHERE word = ? OR reading = ? ");
+    q.bindValue(0, QString::fromUtf8(value));
+    q.bindValue(1, QString::fromUtf8(value.toUtf8()));
+    if(q.exec()) {
+      std::cout <<  "executed successfully" << std::endl;
+    }
     if(q.lastError().type()) {
       QMessageBox::critical(0, "Lookup Database Error", q.lastError().text(), QMessageBox::Cancel);
       return edict_words;
     }
     while(q.next()) {
       QString t = q.value(1).toString();
-      //      std::cout << "something found: " << t.toStdString() << std::endl;
+      std::cout << "something found: " << t.toStdString() << std::endl;
       Edict *e  = new Edict();
       e->id      = q.value(0).toInt();
       e->word    = q.value(1).toString();
       e->reading = q.value(2).toString();
       edict_words.append(e);
     }
-
+/*
     foreach(Edict *e, edict_words) {
       q.prepare("SELECT definition FROM edict_definitions WHERE edict_word_id = ? ");
       q.addBindValue(e->id);
@@ -112,6 +111,7 @@ QList<Edict*> Database::lookup(const QString &value, LookupType type) {
         e->definitions.append(q.value(0).toString());
       }
     }
+    */
   }
   return edict_words;
 }
