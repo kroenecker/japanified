@@ -9,7 +9,8 @@
 #include "databasethread.h"
 #include "edict.h"
 
-enum LookupType {
+enum LookupType
+{
   EXACT  = 0,
   BEGIN  = 1,
   MIDDLE = 2,
@@ -25,7 +26,7 @@ class Database
     bool connect();
     bool create();
     bool fill();
-    QList<Edict*> lookup(const QString &value, LookupType t);
+    QList<Edict*> lookup(QString value, LookupType t);
 
     DatabaseThread thread;
 

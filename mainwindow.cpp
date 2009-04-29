@@ -27,14 +27,24 @@ void MainWindow::on_actionGenerage_Database_activated()
   ccd_dialog.show();
 }
 
-void MainWindow::actionGenerate_Database_accepted() {
+void MainWindow::actionGenerate_Database_accepted()
+{
   pb_dialog.show();
   d.fill();
 }
 
-void MainWindow::on_lookupPushButton_clicked() {
-  QList<Edict *> e = d.lookup(c.romajiToJapanese(ui->lookupLineEdit->text()), EXACT);
-
+void MainWindow::on_lookupPushButton_clicked()
+{
+    QList<Edict *> e;
+  if(ui->exactRadioButton->isChecked()) {
+    e = d.lookup(c.romajiToJapanese(ui->lookupLineEdit->text()), EXACT);
+  } else if(ui->beginningRadioButton->isChecked()) {
+    e = d.lookup(c.romajiToJapanese(ui->lookupLineEdit->text()), BEGIN);
+  } else if(ui->middleRadioButton->isChecked()) {
+    e = d.lookup(c.romajiToJapanese(ui->lookupLineEdit->text()), MIDDLE);
+  } else if(ui->endRadioButton->isChecked()) {
+    e = d.lookup(c.romajiToJapanese(ui->lookupLineEdit->text()), END);
+  }
   ui->lookupTableWidget->clear();
   ui->lookupTableWidget->setColumnCount(3);
   ui->lookupTableWidget->setRowCount(e.length());
@@ -54,7 +64,8 @@ void MainWindow::on_lookupPushButton_clicked() {
   }
 }
 
-void MainWindow::on_historyPushButton_clicked() {
+void MainWindow::on_historyPushButton_clicked()
+{
   if(ui->dockWidget->isHidden()) {
     ui->dockWidget->show();
   } else {

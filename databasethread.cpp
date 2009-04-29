@@ -13,10 +13,12 @@ DatabaseThread::DatabaseThread()
 {
 }
 
-DatabaseThread::~DatabaseThread() {
+DatabaseThread::~DatabaseThread()
+{
 }
 
-void DatabaseThread::run() {
+void DatabaseThread::run()
+{
   QFile textfile("edict_utf8.txt");
   if(!textfile.exists()) {
     //add emit
