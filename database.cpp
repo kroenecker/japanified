@@ -59,7 +59,6 @@ bool Database::create()
 bool Database::fill()
 {
     connect();
-
     QSqlQuery q;
     q.exec("DROP TABLE IF EXISTS edict_words;");
     if(q.lastError().type()) {

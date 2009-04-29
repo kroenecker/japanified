@@ -12,7 +12,7 @@ class ProgressBarDialog : public QDialog
     void closeEvent(QCloseEvent *e);
 
   public slots:
-    void database_complete();
+    void databaseComplete();
 
   private:
     bool complete;

@@ -15,7 +15,7 @@ void ProgressBarDialog::closeEvent(QCloseEvent *e) {
   }
 }
 
-void ProgressBarDialog::database_complete() {
+void ProgressBarDialog::databaseComplete() {
   complete = true;
   close();
 }

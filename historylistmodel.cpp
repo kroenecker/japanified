@@ -39,13 +39,13 @@ QVariant HistoryListModel::data( const QModelIndex & index, int role) const
     return QVariant();
 }
 
-Edict* HistoryListModel::getEdict(int index)
+Edict HistoryListModel::getEdict(int index)
 {
     const Edict* const i = historyList.at(index);
-    Edict *e       = new Edict();
-    e->id          = i->id;
-    e->word        = i->word;
-    e->reading     = i->reading;
-    e->definitions = i->definitions;
+    Edict e;
+    e.id          = i->id;
+    e.word        = i->word;
+    e.reading     = i->reading;
+    e.definitions = i->definitions;
     return e;
 }

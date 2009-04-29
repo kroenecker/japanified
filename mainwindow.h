@@ -38,7 +38,7 @@ private:
     void fillLookupTableWidget(QList<Edict *> e);
 
 public slots:
-    void on_actionGenerageDatabaseActivated();
+    void on_actionGenerateDatabase_activated();
     void actionGenerateDatabaseAccepted();
     void addHistory(int row, int column);
     void showHistoryIndex(QModelIndex);

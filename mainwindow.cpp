@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->historyListView->setModel(&h);
 
+    ui->lookupPushButton->setAutoDefault(true);
+
     QObject::connect(&ccd_dialog, SIGNAL(accepted()), this, SLOT(actionGenerateDatabaseAccepted()));
     QObject::connect(&d.thread, SIGNAL(progress(int)), pb->progressBar, SLOT(setValue(int)));
     QObject::connect(&d.thread, SIGNAL(finished()), &pb_dialog, SLOT(databaseComplete()));
@@ -28,7 +30,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_actionGenerageDatabaseActivated()
+void MainWindow::on_actionGenerateDatabase_activated()
 {
     ccd_dialog.show();
 }
@@ -58,6 +60,7 @@ void MainWindow::fillLookupTableWidget(QList<Edict *> e)
 {
     ui->lookupTableWidget->clear();
     ui->lookupTableWidget->setColumnCount(4);
+
     QStringList headerNames;
     headerNames << "id" << "Word" << "Reading" << "Definition";
     ui->lookupTableWidget->setHorizontalHeaderLabels(headerNames);
@@ -80,16 +83,19 @@ void MainWindow::fillLookupTableWidget(QList<Edict *> e)
         ui->lookupTableWidget->setItem(counter, 2, i2);
 
         QTableWidgetItem *i3 = new QTableWidgetItem(word->definitions.join("; "));
+        i3->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
         ui->lookupTableWidget->setItem(counter, 3, i3);
 
         counter++;
     }
+    ui->lookupLineEdit->setFocus();
 }
 
 void MainWindow::showHistoryIndex(QModelIndex index)
 {
     QList<Edict *> e;
-    e.append(h.getEdict(index.row()));
+    Edict *ep = new Edict(h.getEdict(index.row()));
+    e.append(ep);
     fillLookupTableWidget(e);
 }
 

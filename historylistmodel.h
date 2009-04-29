@@ -14,7 +14,7 @@ class HistoryListModel : public QAbstractListModel
     QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const;
 
     bool addWord(const Edict& e);
-    Edict* getEdict(int index);
+    Edict getEdict(int index);
   private:
     QList<Edict *> historyList;
 };

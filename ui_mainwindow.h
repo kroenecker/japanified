@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Wed Apr 29 12:07:31 2009
+** Created: Wed Apr 29 16:22:27 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -35,8 +35,7 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindowClass
 {
 public:
-    QAction *actionGenerate_Databaase;
-    QAction *actionGenerage_Database;
+    QAction *actionGenerateDatabase;
     QWidget *centralWidget;
     QGridLayout *gridLayout_2;
     QLineEdit *lookupLineEdit;
@@ -62,10 +61,8 @@ public:
         if (MainWindowClass->objectName().isEmpty())
             MainWindowClass->setObjectName(QString::fromUtf8("MainWindowClass"));
         MainWindowClass->resize(611, 344);
-        actionGenerate_Databaase = new QAction(MainWindowClass);
-        actionGenerate_Databaase->setObjectName(QString::fromUtf8("actionGenerate_Databaase"));
-        actionGenerage_Database = new QAction(MainWindowClass);
-        actionGenerage_Database->setObjectName(QString::fromUtf8("actionGenerage_Database"));
+        actionGenerateDatabase = new QAction(MainWindowClass);
+        actionGenerateDatabase->setObjectName(QString::fromUtf8("actionGenerateDatabase"));
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout_2 = new QGridLayout(centralWidget);
@@ -127,7 +124,7 @@ public:
         MainWindowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 611, 26));
+        menuBar->setGeometry(QRect(0, 0, 611, 25));
         menuOptions = new QMenu(menuBar);
         menuOptions->setObjectName(QString::fromUtf8("menuOptions"));
         MainWindowClass->setMenuBar(menuBar);
@@ -157,7 +154,7 @@ public:
         MainWindowClass->addDockWidget(static_cast<Qt::DockWidgetArea>(2), dockWidget);
 
         menuBar->addAction(menuOptions->menuAction());
-        menuOptions->addAction(actionGenerage_Database);
+        menuOptions->addAction(actionGenerateDatabase);
 
         retranslateUi(MainWindowClass);
 
@@ -167,8 +164,7 @@ public:
     void retranslateUi(QMainWindow *MainWindowClass)
     {
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", 0, QApplication::UnicodeUTF8));
-        actionGenerate_Databaase->setText(QApplication::translate("MainWindowClass", "Generate Databaase", 0, QApplication::UnicodeUTF8));
-        actionGenerage_Database->setText(QApplication::translate("MainWindowClass", "Generage Database", 0, QApplication::UnicodeUTF8));
+        actionGenerateDatabase->setText(QApplication::translate("MainWindowClass", "Generate Database", 0, QApplication::UnicodeUTF8));
         lookupPushButton->setText(QApplication::translate("MainWindowClass", "Lookup", 0, QApplication::UnicodeUTF8));
         exactRadioButton->setText(QApplication::translate("MainWindowClass", "Exact", 0, QApplication::UnicodeUTF8));
         beginningRadioButton->setText(QApplication::translate("MainWindowClass", "Beginning", 0, QApplication::UnicodeUTF8));
