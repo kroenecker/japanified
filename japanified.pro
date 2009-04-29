@@ -10,13 +10,15 @@ SOURCES += main.cpp \
     edict.cpp \
     databasethread.cpp \
     progressbardialog.cpp \
-    convert.cpp
+    convert.cpp \
+    historylistmodel.cpp
 HEADERS += mainwindow.h \
     database.h \
     edict.h \
     databasethread.h \
     progressbardialog.h \
-    convert.h
+    convert.h \
+    historylistmodel.h
 FORMS += mainwindow.ui \
     confirm_create_database.ui \
     progressbar.ui

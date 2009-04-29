@@ -6,6 +6,7 @@
 #include "convert.h"
 #include "database.h"
 #include "progressbardialog.h"
+#include "historylistmodel.h"
 
 namespace Ui
 {
@@ -25,6 +26,7 @@ public:
 private:
     Convert c;
     Database d;
+    HistoryListModel h;
 
     ProgressBarDialog pb_dialog;
     QDialog ccd_dialog;
@@ -36,6 +38,7 @@ private:
 public slots:
     void on_actionGenerage_Database_activated();
     void actionGenerate_Database_accepted();
+    void add_history(int row, int column);
 
 private slots:
     void on_historyPushButton_clicked();
