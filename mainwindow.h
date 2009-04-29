@@ -35,10 +35,13 @@ private:
     Ui::ConfirmCreateDatabase *ccd;
     Ui::DatabaseProgressBar *pb;
 
+    void fillLookupTableWidget(QList<Edict *> e);
+
 public slots:
-    void on_actionGenerage_Database_activated();
-    void actionGenerate_Database_accepted();
-    void add_history(int row, int column);
+    void on_actionGenerageDatabaseActivated();
+    void actionGenerateDatabaseAccepted();
+    void addHistory(int row, int column);
+    void showHistoryIndex(QModelIndex);
 
 private slots:
     void on_historyPushButton_clicked();
