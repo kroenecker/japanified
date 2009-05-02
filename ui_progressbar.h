@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'progressbar.ui'
 **
-** Created: Wed Apr 29 12:07:31 2009
+** Created: Sun May 3 01:17:28 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -34,7 +34,7 @@ public:
         if (DatabaseProgressBar->objectName().isEmpty())
             DatabaseProgressBar->setObjectName(QString::fromUtf8("DatabaseProgressBar"));
         DatabaseProgressBar->setWindowModality(Qt::ApplicationModal);
-        DatabaseProgressBar->resize(301, 66);
+        DatabaseProgressBar->resize(310, 68);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -61,7 +61,7 @@ public:
 
     void retranslateUi(QDialog *DatabaseProgressBar)
     {
-        DatabaseProgressBar->setWindowTitle(QApplication::translate("DatabaseProgressBar", "Dialog", 0, QApplication::UnicodeUTF8));
+        DatabaseProgressBar->setWindowTitle(QApplication::translate("DatabaseProgressBar", "Database Creation Progress", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("DatabaseProgressBar", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"

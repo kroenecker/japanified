@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'confirm_create_database.ui'
 **
-** Created: Wed Apr 29 12:07:31 2009
+** Created: Sun May 3 01:18:02 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -33,7 +33,7 @@ public:
     {
         if (ConfirmCreateDatabase->objectName().isEmpty())
             ConfirmCreateDatabase->setObjectName(QString::fromUtf8("ConfirmCreateDatabase"));
-        ConfirmCreateDatabase->resize(400, 87);
+        ConfirmCreateDatabase->resize(529, 87);
         gridLayout = new QGridLayout(ConfirmCreateDatabase);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         label = new QLabel(ConfirmCreateDatabase);
@@ -58,12 +58,12 @@ public:
 
     void retranslateUi(QDialog *ConfirmCreateDatabase)
     {
-        ConfirmCreateDatabase->setWindowTitle(QApplication::translate("ConfirmCreateDatabase", "Dialog", 0, QApplication::UnicodeUTF8));
+        ConfirmCreateDatabase->setWindowTitle(QApplication::translate("ConfirmCreateDatabase", "Create Database", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("ConfirmCreateDatabase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Creating the database file will take time.  Please wait.</p></body></html>", 0, QApplication::UnicodeUTF8));
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Creating the database file will take time.  Please be patient after clicking 'OK'.</p></body></html>", 0, QApplication::UnicodeUTF8));
         Q_UNUSED(ConfirmCreateDatabase);
     } // retranslateUi
 

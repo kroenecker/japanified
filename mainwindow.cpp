@@ -7,26 +7,31 @@
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindowClass), ccd(new Ui::ConfirmCreateDatabase), pb(new Ui::DatabaseProgressBar), hd(new Ui::HistoryDialog)
+    : QMainWindow(parent),
+    ui(new Ui::MainWindowClass),
+    ccd(new Ui::ConfirmCreateDatabase),
+    pb(new Ui::DatabaseProgressBar),
+    hd(new Ui::HistoryDialog)
 {
     ui->setupUi(this);
     ccd->setupUi(&ccd_dialog);
     pb->setupUi(&pb_dialog);
+    hd->setupUi(&hd_dialog);
 
     ui->historyListView->setModel(&h);
 
     ui->lookupPushButton->setAutoDefault(true);
 
     QObject::connect(&ccd_dialog, SIGNAL(accepted()), this, SLOT(actionGenerateDatabaseAccepted()));
+    QObject::connect(&hd_dialog, SIGNAL(accepted()), this, SLOT(saveHistory()));
+
     QObject::connect(&d.thread, SIGNAL(progress(int)), pb->progressBar, SLOT(setValue(int)));
     QObject::connect(&d.thread, SIGNAL(finished()), &pb_dialog, SLOT(databaseComplete()));
+
     QObject::connect(ui->lookupTableWidget, SIGNAL(cellDoubleClicked (int, int)), this, SLOT(addHistory(int, int)));
     QObject::connect(ui->historyListView, SIGNAL(clicked(QModelIndex)), this, SLOT(showHistoryIndex(QModelIndex)));
 
-    QList<History*> history = d.selectHistory();
-    foreach(History* i, history) {
-      ui->historyComboBox->addItem(i->title, i->id);
-    }
+    fillHistory();
 }
 
 MainWindow::~MainWindow()
@@ -106,6 +111,23 @@ void MainWindow::showHistoryIndex(QModelIndex index)
     fillLookupTableWidget(e);
 }
 
+void MainWindow::fillHistory()
+{
+    ui->historyComboBox->clear();
+    QList<History*> history = d.selectHistory();
+    foreach(History* i, history) {
+      ui->historyComboBox->addItem(i->title, i->id);
+    }
+}
+
+void MainWindow::saveHistory()
+{
+    hd_dialog.hide();
+    History history = d.insertHistory(hd->historyTitleLineEdit->text());
+    saveHistoryEdictWords();
+    fillHistory();
+}
+
 void MainWindow::addHistory(int row, int column)
 {
     QModelIndex i = ui->lookupTableWidget->indexAt(QPoint(row,column));
@@ -124,4 +146,18 @@ void MainWindow::on_historyPushButton_clicked()
     } else {
         ui->dockWidget->hide();
     }
+}
+
+void MainWindow::saveHistoryEdictWords()
+{
+
+}
+
+void MainWindow::on_saveHistoryPushButton_clicked()
+{
+  if(ui->historyComboBox->currentIndex() == 0) {
+    hd_dialog.show();
+  } else {
+    saveHistoryEdictWords();
+  }
 }

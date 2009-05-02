@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Sat May 2 22:50:39 2009
+** Created: Sun May 3 01:19:16 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -38,6 +38,7 @@ class Ui_MainWindowClass
 {
 public:
     QAction *actionGenerateDatabase;
+    QAction *actionQuit;
     QWidget *centralWidget;
     QGridLayout *gridLayout_2;
     QLineEdit *lookupLineEdit;
@@ -60,7 +61,7 @@ public:
     QListView *historyListView;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
-    QPushButton *addHistoryPushButton;
+    QPushButton *saveHistoryPushButton;
     QSpacerItem *horizontalSpacer_2;
 
     void setupUi(QMainWindow *MainWindowClass)
@@ -70,6 +71,8 @@ public:
         MainWindowClass->resize(611, 344);
         actionGenerateDatabase = new QAction(MainWindowClass);
         actionGenerateDatabase->setObjectName(QString::fromUtf8("actionGenerateDatabase"));
+        actionQuit = new QAction(MainWindowClass);
+        actionQuit->setObjectName(QString::fromUtf8("actionQuit"));
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout_2 = new QGridLayout(centralWidget);
@@ -169,10 +172,10 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
-        addHistoryPushButton = new QPushButton(dockWidgetContents);
-        addHistoryPushButton->setObjectName(QString::fromUtf8("addHistoryPushButton"));
+        saveHistoryPushButton = new QPushButton(dockWidgetContents);
+        saveHistoryPushButton->setObjectName(QString::fromUtf8("saveHistoryPushButton"));
 
-        horizontalLayout_2->addWidget(addHistoryPushButton);
+        horizontalLayout_2->addWidget(saveHistoryPushButton);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -186,8 +189,10 @@ public:
 
         menuBar->addAction(menuOptions->menuAction());
         menuOptions->addAction(actionGenerateDatabase);
+        menuOptions->addAction(actionQuit);
 
         retranslateUi(MainWindowClass);
+        QObject::connect(actionQuit, SIGNAL(activated()), MainWindowClass, SLOT(close()));
 
         QMetaObject::connectSlotsByName(MainWindowClass);
     } // setupUi
@@ -196,6 +201,7 @@ public:
     {
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", 0, QApplication::UnicodeUTF8));
         actionGenerateDatabase->setText(QApplication::translate("MainWindowClass", "Generate Database", 0, QApplication::UnicodeUTF8));
+        actionQuit->setText(QApplication::translate("MainWindowClass", "Quit", 0, QApplication::UnicodeUTF8));
         lookupPushButton->setText(QApplication::translate("MainWindowClass", "Lookup", 0, QApplication::UnicodeUTF8));
         exactRadioButton->setText(QApplication::translate("MainWindowClass", "Exact", 0, QApplication::UnicodeUTF8));
         beginningRadioButton->setText(QApplication::translate("MainWindowClass", "Beginning", 0, QApplication::UnicodeUTF8));
@@ -208,7 +214,7 @@ public:
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">History</p></body></html>", 0, QApplication::UnicodeUTF8));
-        addHistoryPushButton->setText(QApplication::translate("MainWindowClass", "Add", 0, QApplication::UnicodeUTF8));
+        saveHistoryPushButton->setText(QApplication::translate("MainWindowClass", "Save", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

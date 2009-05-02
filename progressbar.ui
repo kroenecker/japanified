@@ -8,9 +8,9 @@
   <property name="geometry">
    <rect>
     <x>0</x>
-    <y>1</y>
-    <width>301</width>
-    <height>66</height>
+    <y>0</y>
+    <width>310</width>
+    <height>68</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Database Creation Progress</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">

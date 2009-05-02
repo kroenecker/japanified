@@ -31,6 +31,7 @@ private:
 
     ProgressBarDialog pb_dialog;
     QDialog ccd_dialog;
+    QDialog hd_dialog;
 
     Ui::MainWindowClass *ui;
     Ui::ConfirmCreateDatabase *ccd;
@@ -44,8 +45,12 @@ public slots:
     void actionGenerateDatabaseAccepted();
     void addHistory(int row, int column);
     void showHistoryIndex(QModelIndex);
+    void fillHistory();
+    void saveHistory();
+    void saveHistoryEdictWords();
 
 private slots:
+    void on_saveHistoryPushButton_clicked();
     void on_historyPushButton_clicked();
     void on_lookupPushButton_clicked();
 };

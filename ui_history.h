@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'history.ui'
 **
-** Created: Sat May 2 23:10:46 2009
+** Created: Sun May 3 01:35:08 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -28,7 +28,7 @@ class Ui_HistoryDialog
 public:
     QGridLayout *gridLayout;
     QLabel *label;
-    QLineEdit *lineEdit;
+    QLineEdit *historyTitleLineEdit;
     QDialogButtonBox *historyButtonBox;
 
     void setupUi(QDialog *HistoryDialog)
@@ -43,15 +43,15 @@ public:
 
         gridLayout->addWidget(label, 0, 0, 1, 1);
 
-        lineEdit = new QLineEdit(HistoryDialog);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        historyTitleLineEdit = new QLineEdit(HistoryDialog);
+        historyTitleLineEdit->setObjectName(QString::fromUtf8("historyTitleLineEdit"));
 
-        gridLayout->addWidget(lineEdit, 0, 1, 1, 1);
+        gridLayout->addWidget(historyTitleLineEdit, 0, 1, 1, 1);
 
         historyButtonBox = new QDialogButtonBox(HistoryDialog);
         historyButtonBox->setObjectName(QString::fromUtf8("historyButtonBox"));
         historyButtonBox->setOrientation(Qt::Horizontal);
-        historyButtonBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Cancel);
+        historyButtonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
         gridLayout->addWidget(historyButtonBox, 1, 1, 1, 1);
 
@@ -65,7 +65,7 @@ public:
 
     void retranslateUi(QDialog *HistoryDialog)
     {
-        HistoryDialog->setWindowTitle(QApplication::translate("HistoryDialog", "Dialog", 0, QApplication::UnicodeUTF8));
+        HistoryDialog->setWindowTitle(QApplication::translate("HistoryDialog", "Save History Entries", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("HistoryDialog", "Title", 0, QApplication::UnicodeUTF8));
         Q_UNUSED(HistoryDialog);
     } // retranslateUi

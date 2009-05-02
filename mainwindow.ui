@@ -92,6 +92,7 @@
      <string>Options</string>
     </property>
     <addaction name="actionGenerateDatabase"/>
+    <addaction name="actionQuit"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
@@ -142,9 +143,9 @@ p, li { white-space: pre-wrap; }
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="addHistoryPushButton">
+        <widget class="QPushButton" name="saveHistoryPushButton">
          <property name="text">
-          <string>Add</string>
+          <string>Save</string>
          </property>
         </widget>
        </item>
@@ -171,8 +172,30 @@ p, li { white-space: pre-wrap; }
     <string>Generate Database</string>
    </property>
   </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionQuit</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindowClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>171</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
