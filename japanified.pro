@@ -11,15 +11,18 @@ SOURCES += main.cpp \
     databasethread.cpp \
     progressbardialog.cpp \
     convert.cpp \
-    historylistmodel.cpp
+    historylistmodel.cpp \
+    history.cpp
 HEADERS += mainwindow.h \
     database.h \
     edict.h \
     databasethread.h \
     progressbardialog.h \
     convert.h \
-    historylistmodel.h
+    historylistmodel.h \
+    history.h
 FORMS += mainwindow.ui \
     confirm_create_database.ui \
-    progressbar.ui
+    progressbar.ui \
+    history.ui
 OTHER_FILES += fill_edict.rb

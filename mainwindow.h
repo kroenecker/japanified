@@ -13,6 +13,7 @@ namespace Ui
     class MainWindowClass;
     class DatabaseProgressBar;
     class ConfirmCreateDatabase;
+    class HistoryDialog;
 }
 
 class MainWindow : public QMainWindow
@@ -34,6 +35,7 @@ private:
     Ui::MainWindowClass *ui;
     Ui::ConfirmCreateDatabase *ccd;
     Ui::DatabaseProgressBar *pb;
+    Ui::HistoryDialog *hd;
 
     void fillLookupTableWidget(QList<Edict *> e);
 

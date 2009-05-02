@@ -8,6 +8,7 @@
 
 #include "databasethread.h"
 #include "edict.h"
+#include "history.h"
 
 enum LookupType
 {
@@ -27,11 +28,15 @@ class Database
     bool create();
     bool fill();
     QList<Edict*> lookup(QString value, LookupType t);
+    History insertHistory(QString title);
+    QList<History*> selectHistory();
+    bool insertHistoryEdictWord(int history_id, int edict_word_id);
 
     DatabaseThread thread;
 
   private:
-    QList<Edict*> edict_words;
+    QList<Edict*>   edict_words;
+    QList<History*> history;
 };
 
 #endif // DATABASE_H

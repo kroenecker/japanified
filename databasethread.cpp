@@ -65,7 +65,7 @@ void DatabaseThread::run()
     q.addBindValue(reading);
     q.exec();
     if(q.lastError().type()) {
-      QMessageBox::critical(0, "Database Error", q.lastError().text(), QMessageBox::Cancel);
+      QMessageBox::critical(0, "DatabaseThread::run Error 1", q.lastError().text(), QMessageBox::Cancel);
       return;
     }
     int id = q.lastInsertId().toInt();
@@ -76,7 +76,7 @@ void DatabaseThread::run()
       q.addBindValue(definitions.at(i));
       q.exec();
       if(q.lastError().type()) {
-        QMessageBox::critical(0, "Database Error", q.lastError().text(), QMessageBox::Cancel);
+        QMessageBox::critical(0, "DatabaseThread::run Error 2", q.lastError().text(), QMessageBox::Cancel);
         return;
       }
     }

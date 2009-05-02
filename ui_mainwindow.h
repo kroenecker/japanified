@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Wed Apr 29 16:22:27 2009
+** Created: Sat May 2 22:50:39 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -14,6 +14,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QComboBox>
 #include <QtGui/QDockWidget>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHBoxLayout>
@@ -26,6 +27,7 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
+#include <QtGui/QSpacerItem>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
@@ -54,7 +56,12 @@ public:
     QWidget *dockWidgetContents;
     QGridLayout *gridLayout;
     QLabel *label_2;
+    QComboBox *historyComboBox;
     QListView *historyListView;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *addHistoryPushButton;
+    QSpacerItem *horizontalSpacer_2;
 
     void setupUi(QMainWindow *MainWindowClass)
     {
@@ -144,11 +151,35 @@ public:
 
         gridLayout->addWidget(label_2, 0, 0, 1, 1);
 
+        historyComboBox = new QComboBox(dockWidgetContents);
+        historyComboBox->setObjectName(QString::fromUtf8("historyComboBox"));
+
+        gridLayout->addWidget(historyComboBox, 1, 0, 1, 1);
+
         historyListView = new QListView(dockWidgetContents);
         historyListView->setObjectName(QString::fromUtf8("historyListView"));
         historyListView->setMinimumSize(QSize(150, 0));
 
-        gridLayout->addWidget(historyListView, 1, 0, 1, 1);
+        gridLayout->addWidget(historyListView, 2, 0, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        addHistoryPushButton = new QPushButton(dockWidgetContents);
+        addHistoryPushButton->setObjectName(QString::fromUtf8("addHistoryPushButton"));
+
+        horizontalLayout_2->addWidget(addHistoryPushButton);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_2);
+
+
+        gridLayout->addLayout(horizontalLayout_2, 3, 0, 1, 1);
 
         dockWidget->setWidget(dockWidgetContents);
         MainWindowClass->addDockWidget(static_cast<Qt::DockWidgetArea>(2), dockWidget);
@@ -177,6 +208,7 @@ public:
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">History</p></body></html>", 0, QApplication::UnicodeUTF8));
+        addHistoryPushButton->setText(QApplication::translate("MainWindowClass", "Add", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

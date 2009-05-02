@@ -2,11 +2,12 @@
 #include "ui_mainwindow.h"
 #include "ui_confirm_create_database.h"
 #include "ui_progressbar.h"
+#include "ui_history.h"
 
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindowClass), ccd(new Ui::ConfirmCreateDatabase), pb(new Ui::DatabaseProgressBar)
+    : QMainWindow(parent), ui(new Ui::MainWindowClass), ccd(new Ui::ConfirmCreateDatabase), pb(new Ui::DatabaseProgressBar), hd(new Ui::HistoryDialog)
 {
     ui->setupUi(this);
     ccd->setupUi(&ccd_dialog);
@@ -21,10 +22,16 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(&d.thread, SIGNAL(finished()), &pb_dialog, SLOT(databaseComplete()));
     QObject::connect(ui->lookupTableWidget, SIGNAL(cellDoubleClicked (int, int)), this, SLOT(addHistory(int, int)));
     QObject::connect(ui->historyListView, SIGNAL(clicked(QModelIndex)), this, SLOT(showHistoryIndex(QModelIndex)));
+
+    QList<History*> history = d.selectHistory();
+    foreach(History* i, history) {
+      ui->historyComboBox->addItem(i->title, i->id);
+    }
 }
 
 MainWindow::~MainWindow()
 {
+    delete hd;
     delete ccd;
     delete pb;
     delete ui;
