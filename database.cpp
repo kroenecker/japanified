@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <QVariant>
 #include <QFile>
 #include <QTextStream>

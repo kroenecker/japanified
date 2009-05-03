@@ -5,8 +5,6 @@
 #include "ui_history.h"
 #include "ui_deletehistory.h"
 
-#include <iostream>
-
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent),
   ui(new Ui::MainWindowClass),
@@ -152,7 +150,6 @@ void MainWindow::saveHistory()
   History history = d.insertHistory(hd->historyTitleLineEdit->text());
   saveHistoryEdictWords(history.id);
   fillHistory();
-  std::cout << ui->historyComboBox->count() << std::endl;
   ui->historyComboBox->setCurrentIndex(ui->historyComboBox->count() - 1);
   showHistory(ui->historyComboBox->currentIndex());
 }

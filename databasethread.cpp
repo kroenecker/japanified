@@ -31,7 +31,9 @@ void DatabaseThread::run()
 
   QSqlQuery q;
   QTextStream in(&textfile);
-  QRegExp     rx("\\[");
+  in.setCodec("UTF-8");
+
+  QRegExp rx("\\[");
 
   QSqlDatabase db = QSqlDatabase::database();
   db.transaction();
