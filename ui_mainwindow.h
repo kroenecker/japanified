@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'mainwindow.ui'
 **
-** Created: Sun May 3 13:50:18 2009
+** Created: Sun May 3 15:39:09 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -62,6 +62,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
     QPushButton *saveHistoryPushButton;
+    QPushButton *deleteHistoryPushButton;
     QSpacerItem *horizontalSpacer_2;
 
     void setupUi(QMainWindow *MainWindowClass)
@@ -168,7 +169,7 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
@@ -177,7 +178,12 @@ public:
 
         horizontalLayout_2->addWidget(saveHistoryPushButton);
 
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        deleteHistoryPushButton = new QPushButton(dockWidgetContents);
+        deleteHistoryPushButton->setObjectName(QString::fromUtf8("deleteHistoryPushButton"));
+
+        horizontalLayout_2->addWidget(deleteHistoryPushButton);
+
+        horizontalSpacer_2 = new QSpacerItem(17, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_2->addItem(horizontalSpacer_2);
 
@@ -215,6 +221,7 @@ public:
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">History</p></body></html>", 0, QApplication::UnicodeUTF8));
         saveHistoryPushButton->setText(QApplication::translate("MainWindowClass", "Save", 0, QApplication::UnicodeUTF8));
+        deleteHistoryPushButton->setText(QApplication::translate("MainWindowClass", "Delete", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

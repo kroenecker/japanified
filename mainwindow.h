@@ -14,6 +14,7 @@ namespace Ui
     class DatabaseProgressBar;
     class ConfirmCreateDatabase;
     class HistoryDialog;
+    class DeleteHistory;
 }
 
 class MainWindow : public QMainWindow
@@ -32,11 +33,13 @@ private:
     ProgressBarDialog pb_dialog;
     QDialog ccd_dialog;
     QDialog hd_dialog;
+    QDialog hdelete_dialog;
 
     Ui::MainWindowClass *ui;
     Ui::ConfirmCreateDatabase *ccd;
     Ui::DatabaseProgressBar *pb;
     Ui::HistoryDialog *hd;
+    Ui::DeleteHistory *history_delete_dialog;
 
     void fillLookupTableWidget(QList<Edict *> e);
 
@@ -47,10 +50,12 @@ public slots:
     void showHistoryIndex(QModelIndex);
     void showHistory(int index);
     void fillHistory();
+    void deleteHistory();
     void saveHistory();
     void saveHistoryEdictWords(int history_id);
 
 private slots:
+    void on_deleteHistoryPushButton_clicked();
     void on_saveHistoryPushButton_clicked();
     void on_historyPushButton_clicked();
     void on_lookupPushButton_clicked();

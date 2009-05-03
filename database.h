@@ -30,6 +30,7 @@ class Database
     QList<Edict*> lookup(QString value, LookupType t);
     History insertHistory(QString title);
     QList<History*> selectHistory();
+    void deleteHistory(int history_id);
     bool insertHistoryEdictWord(int history_id, int edict_word_id);
     QList<Edict*> selectHistoryEdictWords(int history_id);
 

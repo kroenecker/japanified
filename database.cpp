@@ -103,6 +103,23 @@ QList<History*> Database::selectHistory() {
   return history;
 }
 
+void Database::deleteHistory(int history_id)
+{
+  QSqlQuery q;
+  q.prepare("DELETE FROM history WHERE id = ? ;");
+  q.addBindValue(history_id);
+  q.exec();
+  if(q.lastError().type()) {
+    QMessageBox::critical(0, "Database::deleteHistory Error 1", q.lastError().text(), QMessageBox::Cancel);
+  }
+  q.prepare("DELETE FROM history_edict_words WHERE history_id = ? ;");
+  q.addBindValue(history_id);
+  q.exec();
+  if(q.lastError().type()) {
+    QMessageBox::critical(0, "Database::deleteHistory Error 2", q.lastError().text(), QMessageBox::Cancel);
+  }
+}
+
 History Database::insertHistory(QString title) 
 {
   QSqlQuery q; 

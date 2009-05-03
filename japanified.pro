@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     progressbardialog.cpp \
     convert.cpp \
     historylistmodel.cpp \
-    history.cpp
+    history.cpp \
+    deletehistory.cpp
 HEADERS += mainwindow.h \
     database.h \
     edict.h \
@@ -20,9 +21,12 @@ HEADERS += mainwindow.h \
     progressbardialog.h \
     convert.h \
     historylistmodel.h \
-    history.h
+    history.h \
+    deletehistory.h
 FORMS += mainwindow.ui \
     confirm_create_database.ui \
     progressbar.ui \
-    history.ui
-OTHER_FILES += fill_edict.rb
+    history.ui \
+    deletehistory.ui
+OTHER_FILES += fill_edict.rb \
+    TODO.txt

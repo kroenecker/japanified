@@ -3,6 +3,7 @@
 #include "ui_confirm_create_database.h"
 #include "ui_progressbar.h"
 #include "ui_history.h"
+#include "ui_deletehistory.h"
 
 #include <iostream>
 
@@ -11,12 +12,14 @@ MainWindow::MainWindow(QWidget *parent)
   ui(new Ui::MainWindowClass),
   ccd(new Ui::ConfirmCreateDatabase),
   pb(new Ui::DatabaseProgressBar),
-  hd(new Ui::HistoryDialog)
+  hd(new Ui::HistoryDialog),
+  history_delete_dialog(new Ui::DeleteHistory)
 {
   ui->setupUi(this);
   ccd->setupUi(&ccd_dialog);
   pb->setupUi(&pb_dialog);
   hd->setupUi(&hd_dialog);
+  history_delete_dialog->setupUi(&hdelete_dialog);
 
   ui->historyListView->setModel(&h);
 
@@ -24,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   QObject::connect(&ccd_dialog, SIGNAL(accepted()), this, SLOT(actionGenerateDatabaseAccepted()));
   QObject::connect(&hd_dialog, SIGNAL(accepted()), this, SLOT(saveHistory()));
+  QObject::connect(&hdelete_dialog, SIGNAL(accepted()), this, SLOT(deleteHistory()));
 
   QObject::connect(&d.thread, SIGNAL(progress(int)), pb->progressBar, SLOT(setValue(int)));
   QObject::connect(&d.thread, SIGNAL(finished()), &pb_dialog, SLOT(databaseComplete()));
@@ -106,9 +110,12 @@ void MainWindow::fillLookupTableWidget(QList<Edict *> e)
 
 void MainWindow::showHistory(int index)
 {
+  h.clear();
   if(index == 0) {
-    h.clear();
+    ui->deleteHistoryPushButton->setEnabled(false);
   } else {
+    ui->deleteHistoryPushButton->setEnabled(true);
+
     int history_id            = ui->historyComboBox->itemData(index, Qt::UserRole).toInt();
     QList<Edict*> edict_words = d.selectHistoryEdictWords(history_id);
     foreach(Edict* edict, edict_words) {
@@ -145,6 +152,9 @@ void MainWindow::saveHistory()
   History history = d.insertHistory(hd->historyTitleLineEdit->text());
   saveHistoryEdictWords(history.id);
   fillHistory();
+  std::cout << ui->historyComboBox->count() << std::endl;
+  ui->historyComboBox->setCurrentIndex(ui->historyComboBox->count() - 1);
+  showHistory(ui->historyComboBox->currentIndex());
 }
 
 void MainWindow::addHistory(int row, int column)
@@ -184,4 +194,19 @@ void MainWindow::on_saveHistoryPushButton_clicked()
     int history_id = ui->historyComboBox->itemData(ui->historyComboBox->currentIndex()).toInt();
     saveHistoryEdictWords(history_id);
   }
+}
+
+void MainWindow::deleteHistory()
+{
+  if(ui->historyComboBox->currentIndex() > 0) {
+    int history_id = ui->historyComboBox->itemData(ui->historyComboBox->currentIndex()).toInt();
+    d.deleteHistory(history_id);
+    fillHistory();
+  }
+}
+
+void MainWindow::on_deleteHistoryPushButton_clicked()
+{
+  history_delete_dialog->historyTitleLabel->setText("Are you sure you want to delete " + ui->historyComboBox->currentText() + "?");
+  hdelete_dialog.show();
 }
