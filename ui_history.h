@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'history.ui'
 **
-** Created: Sun May 3 01:35:08 2009
+** Created: Sun May 3 13:50:18 2009
 **      by: Qt User Interface Compiler version 4.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!

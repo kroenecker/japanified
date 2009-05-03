@@ -45,9 +45,10 @@ public slots:
     void actionGenerateDatabaseAccepted();
     void addHistory(int row, int column);
     void showHistoryIndex(QModelIndex);
+    void showHistory(int index);
     void fillHistory();
     void saveHistory();
-    void saveHistoryEdictWords();
+    void saveHistoryEdictWords(int history_id);
 
 private slots:
     void on_saveHistoryPushButton_clicked();

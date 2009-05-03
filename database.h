@@ -31,6 +31,7 @@ class Database
     History insertHistory(QString title);
     QList<History*> selectHistory();
     bool insertHistoryEdictWord(int history_id, int edict_word_id);
+    QList<Edict*> selectHistoryEdictWords(int history_id);
 
     DatabaseThread thread;
 

@@ -71,14 +71,16 @@ void DatabaseThread::run()
     int id = q.lastInsertId().toInt();
 
     for(int i = 1; i < definitions.length(); i++) {
-      q.prepare("INSERT INTO edict_definitions (id, edict_word_id, definition) VALUES (NULL, ?, ?);");
-      q.addBindValue(id);
-      q.addBindValue(definitions.at(i));
-      q.exec();
-      if(q.lastError().type()) {
-        QMessageBox::critical(0, "DatabaseThread::run Error 2", q.lastError().text(), QMessageBox::Cancel);
-        return;
-      }
+        if(definitions.at(i) != "") {
+            q.prepare("INSERT INTO edict_definitions (id, edict_word_id, definition) VALUES (NULL, ?, ?);");
+            q.addBindValue(id);
+            q.addBindValue(definitions.at(i));
+            q.exec();
+            if(q.lastError().type()) {
+                QMessageBox::critical(0, "DatabaseThread::run Error 2", q.lastError().text(), QMessageBox::Cancel);
+                return;
+            }
+        }
     }
   }
   db.commit();

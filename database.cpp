@@ -103,7 +103,8 @@ QList<History*> Database::selectHistory() {
   return history;
 }
 
-History Database::insertHistory(QString title) {
+History Database::insertHistory(QString title) 
+{
   QSqlQuery q; 
   q.prepare("INSERT INTO history(id, title) VALUES (NULL, ?);");
   q.addBindValue(title);
@@ -114,6 +115,51 @@ History Database::insertHistory(QString title) {
   }
   int id = q.lastInsertId().toInt();
   return History(id, title);
+}
+
+QList<Edict*> Database::selectHistoryEdictWords(int history_id) {
+  while(!edict_words.isEmpty()) {
+    delete edict_words.takeFirst();
+  }
+  QSqlQuery q;
+  q.prepare("SELECT edict_word_id FROM history_edict_words where history_id = ? ;");
+  q.addBindValue(history_id);
+  q.exec();
+  if(q.lastError().type()) {
+    QMessageBox::critical(0, "Database::selectHistoryEdictWords Error", q.lastError().text(), QMessageBox::Cancel);
+    return edict_words;
+  }
+  while(q.next()) {
+    int edict_word_id = q.value(0).toInt();
+    QSqlQuery q1;
+    q1.prepare("SELECT id, word, reading FROM edict_words where id = ? ;");
+    q1.addBindValue(edict_word_id);
+    q1.exec();
+    if(q1.lastError().type()) {
+      QMessageBox::critical(0, "Database::selectHistoryEdictWords Error", q.lastError().text(), QMessageBox::Cancel);
+      return edict_words;
+    }
+    while(q1.next()) {
+      Edict *e   = new Edict();
+      e->id      = q1.value(0).toInt();
+      e->word    = q1.value(1).toString();
+      e->reading = q1.value(2).toString();
+      edict_words.append(e);
+    }
+  }  
+  foreach(Edict *e, edict_words) {
+    q.prepare("SELECT definition FROM edict_definitions WHERE edict_word_id = ? ");
+    q.addBindValue(e->id);
+    q.exec();
+    if(q.lastError().type()) {
+      QMessageBox::critical(0, "Lookup Database Error", q.lastError().text(), QMessageBox::Cancel);
+      return edict_words;
+    }
+    while(q.next()) {
+      e->definitions.append(q.value(0).toString());
+    }
+  }
+  return edict_words;
 }
 
 bool Database::insertHistoryEdictWord(int history_id, int edict_word_id) {
@@ -172,8 +218,8 @@ QList<Edict*> Database::lookup(QString value, LookupType type)
 
   QSqlQuery q;
   q.prepare("SELECT id, word, reading FROM edict_words WHERE word " + like + " ? OR  reading " + like + " ? ");
-  q.bindValue(0,value);
-  q.bindValue(1,value);
+  q.bindValue(0, QVariant(value));
+  q.bindValue(1, QVariant(value));
   q.exec();
 
   if(q.lastError().type()) {

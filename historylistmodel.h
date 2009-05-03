@@ -15,6 +15,7 @@ class HistoryListModel : public QAbstractListModel
 
     bool addWord(const Edict& e);
     Edict getEdict(int index);
+    void clear();
   private:
     QList<Edict *> historyList;
 };

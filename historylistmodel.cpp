@@ -49,3 +49,11 @@ Edict HistoryListModel::getEdict(int index)
     e.definitions = i->definitions;
     return e;
 }
+
+void HistoryListModel::clear()
+{
+  while(!historyList.isEmpty()) {
+    delete historyList.takeFirst();
+  }
+  this->reset();
+}
