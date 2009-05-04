@@ -26,20 +26,20 @@ public:
     ~MainWindow();
 
 private:
-    Convert c;
-    Database d;
-    HistoryListModel h;
+    Convert convert;
+    Database database;
+    HistoryListModel history_model;
 
-    ProgressBarDialog pb_dialog;
-    QDialog ccd_dialog;
-    QDialog hd_dialog;
-    QDialog hdelete_dialog;
+    ProgressBarDialog progress_bar_dialog;
+    QDialog confirm_create_database_dialog;
+    QDialog new_history_dialog;
+    QDialog delete_history_dialog;
 
     Ui::MainWindowClass *ui;
-    Ui::ConfirmCreateDatabase *ccd;
-    Ui::DatabaseProgressBar *pb;
-    Ui::HistoryDialog *hd;
-    Ui::DeleteHistory *history_delete_dialog;
+    Ui::ConfirmCreateDatabase *p_confirm_create_database_dialog;
+    Ui::DatabaseProgressBar *p_progress_bar_dialog;
+    Ui::HistoryDialog *p_new_history_dialog;
+    Ui::DeleteHistory *p_delete_history_dialog;
 
     void fillLookupTableWidget(QList<Edict *> e);
 
@@ -49,14 +49,15 @@ public slots:
     void addHistory(int row, int column);
     void showHistoryIndex(QModelIndex);
     void showHistory(int index);
-    void fillHistory();
+    void fillHistoryComboBox();
     void deleteHistory();
-    void saveHistory();
-    void saveHistoryEdictWords(int history_id);
+    void newHistory();
+    void historyRejected();
+    void newHistoryEdictWords(int history_id);
 
 private slots:
+    void on_newHistoryPushButton_clicked();
     void on_deleteHistoryPushButton_clicked();
-    void on_saveHistoryPushButton_clicked();
     void on_historyPushButton_clicked();
     void on_lookupPushButton_clicked();
 };

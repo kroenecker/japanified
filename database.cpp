@@ -75,6 +75,7 @@ bool Database::create()
   return true;
 }
 
+//---------------------------------------- History Table ----------------------------------------
 QList<History*> Database::selectHistory() {
   connect();
   while(!history.isEmpty()) {
@@ -132,6 +133,7 @@ History Database::insertHistory(QString title)
   return History(id, title);
 }
 
+//---------------------------------------- History Edict Words Table ----------------------------------------
 QList<Edict*> Database::selectHistoryEdictWords(int history_id) {
   while(!edict_words.isEmpty()) {
     delete edict_words.takeFirst();

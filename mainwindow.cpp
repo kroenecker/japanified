@@ -8,65 +8,67 @@
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent),
   ui(new Ui::MainWindowClass),
-  ccd(new Ui::ConfirmCreateDatabase),
-  pb(new Ui::DatabaseProgressBar),
-  hd(new Ui::HistoryDialog),
-  history_delete_dialog(new Ui::DeleteHistory)
+  p_confirm_create_database_dialog(new Ui::ConfirmCreateDatabase),
+  p_progress_bar_dialog(new Ui::DatabaseProgressBar),
+  p_new_history_dialog(new Ui::HistoryDialog),
+  p_delete_history_dialog(new Ui::DeleteHistory)
 {
   ui->setupUi(this);
-  ccd->setupUi(&ccd_dialog);
-  pb->setupUi(&pb_dialog);
-  hd->setupUi(&hd_dialog);
-  history_delete_dialog->setupUi(&hdelete_dialog);
+  p_confirm_create_database_dialog->setupUi(&confirm_create_database_dialog);
+  p_progress_bar_dialog->setupUi(&progress_bar_dialog);
+  p_new_history_dialog->setupUi(&new_history_dialog);
+  p_delete_history_dialog->setupUi(&delete_history_dialog);
 
-  ui->historyListView->setModel(&h);
+  ui->historyListView->setModel(&history_model);
 
   ui->lookupPushButton->setAutoDefault(true);
 
-  QObject::connect(&ccd_dialog, SIGNAL(accepted()), this, SLOT(actionGenerateDatabaseAccepted()));
-  QObject::connect(&hd_dialog, SIGNAL(accepted()), this, SLOT(saveHistory()));
-  QObject::connect(&hdelete_dialog, SIGNAL(accepted()), this, SLOT(deleteHistory()));
+  QObject::connect(&confirm_create_database_dialog, SIGNAL(accepted()), this, SLOT(actionGenerateDatabaseAccepted()));
+  QObject::connect(&new_history_dialog, SIGNAL(accepted()), this, SLOT(newHistory()));
+  QObject::connect(&new_history_dialog, SIGNAL(rejected()), this, SLOT(historyRejected()));
+  QObject::connect(&delete_history_dialog, SIGNAL(accepted()), this, SLOT(deleteHistory()));
 
-  QObject::connect(&d.thread, SIGNAL(progress(int)), pb->progressBar, SLOT(setValue(int)));
-  QObject::connect(&d.thread, SIGNAL(finished()), &pb_dialog, SLOT(databaseComplete()));
+  QObject::connect(&database.thread, SIGNAL(progress(int)), p_progress_bar_dialog->progressBar, SLOT(setValue(int)));
+  QObject::connect(&database.thread, SIGNAL(finished()), &progress_bar_dialog, SLOT(databaseComplete()));
 
   QObject::connect(ui->lookupTableWidget, SIGNAL(cellDoubleClicked (int, int)), this, SLOT(addHistory(int, int)));
   QObject::connect(ui->historyListView, SIGNAL(clicked(QModelIndex)), this, SLOT(showHistoryIndex(QModelIndex)));
   QObject::connect(ui->historyComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(showHistory(int)));
 
-  fillHistory();
+  fillHistoryComboBox();
 }
 
 MainWindow::~MainWindow()
 {
-  delete hd;
-  delete ccd;
-  delete pb;
+  delete p_delete_history_dialog;
+  delete p_new_history_dialog;
+  delete p_confirm_create_database_dialog;
+  delete p_progress_bar_dialog;
   delete ui;
 }
 
 void MainWindow::on_actionGenerateDatabase_activated()
 {
-  ccd_dialog.show();
+  confirm_create_database_dialog.show();
 }
 
 void MainWindow::actionGenerateDatabaseAccepted()
 {
-  pb_dialog.show();
-  d.fill();
+  progress_bar_dialog.show();
+  database.fill();
 }
 
 void MainWindow::on_lookupPushButton_clicked()
 {
   QList<Edict *> e;
   if(ui->exactRadioButton->isChecked()) {
-    e = d.lookup(c.romajiToJapanese(ui->lookupLineEdit->text()), EXACT);
+    e = database.lookup(convert.romajiToJapanese(ui->lookupLineEdit->text()), EXACT);
   } else if(ui->beginningRadioButton->isChecked()) {
-    e = d.lookup(c.romajiToJapanese(ui->lookupLineEdit->text()), BEGIN);
+    e = database.lookup(convert.romajiToJapanese(ui->lookupLineEdit->text()), BEGIN);
   } else if(ui->middleRadioButton->isChecked()) {
-    e = d.lookup(c.romajiToJapanese(ui->lookupLineEdit->text()), MIDDLE);
+    e = database.lookup(convert.romajiToJapanese(ui->lookupLineEdit->text()), MIDDLE);
   } else if(ui->endRadioButton->isChecked()) {
-    e = d.lookup(c.romajiToJapanese(ui->lookupLineEdit->text()), END);
+    e = database.lookup(convert.romajiToJapanese(ui->lookupLineEdit->text()), END);
   }
   fillLookupTableWidget(e);
 }
@@ -106,23 +108,24 @@ void MainWindow::fillLookupTableWidget(QList<Edict *> e)
   ui->lookupLineEdit->setFocus();
 }
 
+//---------------------------------------- History ----------------------------------------
 void MainWindow::showHistory(int index)
 {
-  h.clear();
+  history_model.clear();
   if(index == 0) {
     ui->deleteHistoryPushButton->setEnabled(false);
   } else {
     ui->deleteHistoryPushButton->setEnabled(true);
 
     int history_id            = ui->historyComboBox->itemData(index, Qt::UserRole).toInt();
-    QList<Edict*> edict_words = d.selectHistoryEdictWords(history_id);
+    QList<Edict*> edict_words = database.selectHistoryEdictWords(history_id);
     foreach(Edict* edict, edict_words) {
       Edict e;
       e.id          = edict->id;
       e.word        = edict->word;
       e.reading     = edict->reading;
       e.definitions = edict->definitions;
-      h.addWord(e);
+      history_model.addWord(e);
     }
   }
 }
@@ -130,28 +133,32 @@ void MainWindow::showHistory(int index)
 void MainWindow::showHistoryIndex(QModelIndex index)
 {
   QList<Edict *> e;
-  Edict *ep = new Edict(h.getEdict(index.row()));
+  Edict *ep = new Edict(history_model.getEdict(index.row()));
   e.append(ep);
   fillLookupTableWidget(e);
 }
 
-void MainWindow::fillHistory()
+void MainWindow::fillHistoryComboBox()
 {
   ui->historyComboBox->clear();
-  QList<History*> history = d.selectHistory();
+  QList<History*> history = database.selectHistory();
   foreach(History* i, history) {
     ui->historyComboBox->addItem(i->title, i->id);
   }
 }
 
-void MainWindow::saveHistory()
+void MainWindow::newHistory()
 {
-  hd_dialog.hide();
-  History history = d.insertHistory(hd->historyTitleLineEdit->text());
-  saveHistoryEdictWords(history.id);
-  fillHistory();
+  new_history_dialog.hide();
+  History history = database.insertHistory(p_new_history_dialog->historyTitleLineEdit->text());
+  if(ui->historyComboBox->currentIndex() == 0) {
+    newHistoryEdictWords(history.id);
+  }
+
+  fillHistoryComboBox();
   ui->historyComboBox->setCurrentIndex(ui->historyComboBox->count() - 1);
   showHistory(ui->historyComboBox->currentIndex());
+  ui->newHistoryPushButton->setDisabled(false);
 }
 
 void MainWindow::addHistory(int row, int column)
@@ -162,7 +169,10 @@ void MainWindow::addHistory(int row, int column)
   e.word        = i.sibling(row, 1).data(Qt::DisplayRole).toString();
   e.reading     = i.sibling(row, 2).data(Qt::DisplayRole).toString();
   e.definitions = i.sibling(row, 3).data(Qt::DisplayRole).toString().split("; ");
-  h.addWord(e);
+  history_model.addWord(e);
+
+  int history_id = ui->historyComboBox->itemData(ui->historyComboBox->currentIndex()).toInt();
+  newHistoryEdictWords(history_id);
 }
 
 void MainWindow::on_historyPushButton_clicked()
@@ -174,22 +184,12 @@ void MainWindow::on_historyPushButton_clicked()
   }
 }
 
-void MainWindow::saveHistoryEdictWords(int history_id)
+void MainWindow::newHistoryEdictWords(int history_id)
 {
-  int count = h.rowCount(QModelIndex());
+  int count = history_model.rowCount(QModelIndex());
   for(int i = 0; i < count; i++) {
-    Edict e = h.getEdict(i);
-    d.insertHistoryEdictWord(history_id, e.id);
-  }
-}
-
-void MainWindow::on_saveHistoryPushButton_clicked()
-{
-  if(ui->historyComboBox->currentIndex() == 0) {
-    hd_dialog.show();
-  } else {
-    int history_id = ui->historyComboBox->itemData(ui->historyComboBox->currentIndex()).toInt();
-    saveHistoryEdictWords(history_id);
+    Edict e = history_model.getEdict(i);
+    database.insertHistoryEdictWord(history_id, e.id);
   }
 }
 
@@ -197,13 +197,25 @@ void MainWindow::deleteHistory()
 {
   if(ui->historyComboBox->currentIndex() > 0) {
     int history_id = ui->historyComboBox->itemData(ui->historyComboBox->currentIndex()).toInt();
-    d.deleteHistory(history_id);
-    fillHistory();
+    database.deleteHistory(history_id);
+    fillHistoryComboBox();
   }
 }
 
 void MainWindow::on_deleteHistoryPushButton_clicked()
 {
-  history_delete_dialog->historyTitleLabel->setText("Are you sure you want to delete " + ui->historyComboBox->currentText() + "?");
-  hdelete_dialog.show();
+  p_delete_history_dialog->historyTitleLabel->setText("Are you sure you want to delete " + ui->historyComboBox->currentText() + "?");
+  delete_history_dialog.show();
+}
+
+void MainWindow::on_newHistoryPushButton_clicked()
+{  
+  ui->newHistoryPushButton->setDisabled(true);
+  new_history_dialog.show();
+}
+
+
+void MainWindow::historyRejected()
+{
+  ui->newHistoryPushButton->setDisabled(false);
 }
